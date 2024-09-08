@@ -1,6 +1,6 @@
 import { Driver, MarkerData } from '@/types/type'
 
-const directionsAPI = process.env.EXPO_PUBLIC_GOOGLE_API_KEY
+const directionsAPI = process.env.EXPO_PUBLIC_DIRECTIONS_API_KEY
 
 export const generateMarkersFromData = ({
   data,
@@ -10,7 +10,7 @@ export const generateMarkersFromData = ({
   data: Driver[]
   userLatitude: number
   userLongitude: number
-}): MarkerData[] => {
+  }): MarkerData[] => {
   //@ts-expect-error missing id
   return data.map((driver) => {
     const latOffset = (Math.random() - 0.5) * 0.01 // Random offset between -0.005 and 0.005
