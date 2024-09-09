@@ -1,4 +1,12 @@
+import { type ClassValue, clsx } from 'clsx'
+import { twMerge } from 'tailwind-merge'
+
 import { Ride } from '@/types/type'
+
+export function cn(...inputs: ClassValue[]) {
+  return twMerge(clsx(inputs))
+}
+
 
 export const sortRides = (rides: Ride[]): Ride[] => {
   const result = rides.sort((a, b) => {
