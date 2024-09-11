@@ -6,7 +6,7 @@ import { Text, TouchableOpacity, View, Image } from 'react-native'
 import { SafeAreaView } from 'react-native-safe-area-context'
 import Swiper from 'react-native-swiper'
 
-export default function Onboarding() {
+const Home = () => {
   const swiperRef = useRef<Swiper>(null)
   const [activeIndex, setActiveIndex] = useState(0)
   const isLastSlide = activeIndex === onboarding.length - 1
@@ -26,10 +26,10 @@ export default function Onboarding() {
         ref={swiperRef}
         loop={false}
         dot={
-          <View className="w-[32px] h-[4px] mx-1 rounded-full bg-[#e2e8f0]" />
+          <View className="w-[32px] h-[4px] mx-1 rounded-full bg-slate-200" />
         }
         activeDot={
-          <View className="w-[32px] h-[4px] mx-1 rounded-full bg-[#0286ff]" />
+          <View className="w-[32px] h-[4px] mx-1 rounded-full bg-primary-500" />
         }
         onIndexChanged={(index) => setActiveIndex(index)}
       >
@@ -64,3 +64,5 @@ export default function Onboarding() {
     </SafeAreaView>
   )
 }
+
+export default Home
