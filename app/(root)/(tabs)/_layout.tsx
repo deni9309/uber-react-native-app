@@ -28,6 +28,7 @@ const TabIcon = ({
         tintColor="white"
         resizeMode="contain"
         className="w-7 h-7"
+        alt='tab icon'
       />
     </View>
   </View>

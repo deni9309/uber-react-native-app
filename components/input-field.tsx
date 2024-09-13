@@ -36,7 +36,11 @@ export const InputField = ({
           )}
         >
           {icon && (
-            <Image source={icon} className={cn('w-6 h-6 ml-4', iconStyle)} />
+            <Image
+              source={icon}
+              className={cn('w-6 h-6 ml-4', iconStyle)}
+              alt="icon"
+            />
           )}
           <TextInput
             className={cn(

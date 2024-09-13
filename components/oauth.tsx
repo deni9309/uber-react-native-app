@@ -22,6 +22,7 @@ export const OAuth = () => {
             source={icons.google}
             resizeMode="contain"
             className="w-5 h-5 mx-2"
+            alt="google"
           />
         )}
         bgVariant="outline"
