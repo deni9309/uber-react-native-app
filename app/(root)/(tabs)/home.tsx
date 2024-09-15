@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react'
 import { useUser } from '@clerk/clerk-expo'
 import * as Location from 'expo-location'
+import { Href, router } from 'expo-router'
 import {
   ActivityIndicator,
   FlatList,
@@ -13,7 +14,7 @@ import { SafeAreaView } from 'react-native-safe-area-context'
 
 import { RideCard } from '@/components/ride-card'
 import { icons, images } from '@/constants'
-import { GoogleTextInput } from '@/components/google-text-input'
+import GoogleTextInput  from '@/components/google-text-input'
 import { Map } from '@/components/map'
 import { useLocationStore } from '@/store'
 
@@ -159,7 +160,15 @@ export default function Home() {
 
   const handleSignOut = () => {}
 
-  const handleDestinationPress = () => {}
+  const handleDestinationPress = (location: {
+    latitude: number
+    longitude: number
+    address: string
+  }) => {
+    setDestinationLocation(location)
+
+    router.push('/(root)/find-ride' as Href)
+  }
 
   return (
     <SafeAreaView className="bg-general-500">
@@ -210,7 +219,6 @@ export default function Home() {
               containerStyle="bg-white shadow-md shadow-neutral-300"
               handlePress={handleDestinationPress}
             />
-
             <>
               <Text className="text-xl font-JakartaBold mt-5 mb-3">
                 Your Current Location
