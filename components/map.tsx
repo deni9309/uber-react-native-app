@@ -1,5 +1,4 @@
 import { useEffect, useState } from 'react'
-import { Text, View } from 'react-native'
 import MapView, { Marker, PROVIDER_DEFAULT } from 'react-native-maps'
 
 import { useDriverStore, useLocationStore } from '@/store'
@@ -73,6 +72,8 @@ export const Map = () => {
   })
 
   useEffect(() => {
+    setDrivers(drivers as MarkerData[])
+
     if (Array.isArray(drivers)) {
       if (!userLatitude || !userLongitude) return
 
