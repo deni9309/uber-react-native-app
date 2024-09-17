@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import { useAuth } from '@clerk/clerk-expo'
+import Stripe from 'stripe'
 import { useStripe } from '@stripe/stripe-react-native'
 import { Alert, Image, Text, View } from 'react-native'
 import ReactNativeModal from 'react-native-modal'
@@ -53,38 +54,44 @@ export default function Payment({
         },
         confirmHandler: async (
           paymentMethod,
-          shouldSavePaymentMethod,
+          _shouldSavePaymentMethod,
           intentCreationCallback,
         ) => {
-          const { paymentIntent, customer } = await fetchAPI(
-            '/(api)/(stripe)/create',
-            {
-              method: 'POST',
-              headers: {
-                'Content-Type': 'application/json',
-              },
-              body: JSON.stringify({
-                name: fullName || email.split('@')[0],
-                email: email,
-                amount: amount,
-                paymentMethod: paymentMethod.id,
-              }),
+          const {
+            paymentIntent,
+            customer,
+          }: {
+            paymentIntent: Stripe.Response<Stripe.PaymentIntent>
+            customer: string
+          } = await fetchAPI('/(api)/(stripe)/create', {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
             },
-          )
+            body: JSON.stringify({
+              name: fullName || email.split('@')[0],
+              email: email,
+              amount: amount,
+              paymentMethod: paymentMethod.id,
+            }),
+          })
 
           if (paymentIntent.client_secret) {
-            const { result } = await fetchAPI('/(api)/(stripe)/pay', {
-              method: 'POST',
-              headers: {
-                'Content-Type': 'application/json',
-              },
-              body: JSON.stringify({
-                payment_method_id: paymentMethod.id,
-                payment_intent_id: paymentIntent.id,
-                customer_id: customer,
-                client_secret: paymentIntent.client_secret,
-              }),
-            })
+            const {
+              result,
+            }: { result: Stripe.Response<Stripe.PaymentIntent> } =
+              await fetchAPI('/(api)/(stripe)/pay', {
+                method: 'POST',
+                headers: {
+                  'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                  payment_method_id: paymentMethod.id,
+                  payment_intent_id: paymentIntent.id,
+                  customer_id: customer,
+                  client_secret: paymentIntent.client_secret,
+                }),
+              })
 
             if (result.client_secret) {
               await fetchAPI('/(api)/ride/create', {
