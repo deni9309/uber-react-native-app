@@ -11,6 +11,7 @@ import { Driver, MarkerData } from '@/types/type'
 import { icons } from '@/constants'
 import { useFetch } from '@/lib/fetch'
 import { ActivityIndicator, Text, View } from 'react-native'
+import MapViewDirections from 'react-native-maps-directions'
 
 // const drivers: Driver[] = [
 //   {
@@ -59,24 +60,17 @@ import { ActivityIndicator, Text, View } from 'react-native'
 //   },
 // ]
 
-export const Map = () => {
-  const { data: drivers, loading, error } = useFetch<Driver[]>('/(api)/driver')
+const Map = () => {
   const {
     userLatitude,
     userLongitude,
     destinationLatitude,
     destinationLongitude,
   } = useLocationStore()
-
   const { selectedDriver, setDrivers } = useDriverStore()
-  const [markers, setMarkers] = useState<MarkerData[]>([])
 
-  const region = calculateRegion({
-    userLatitude,
-    userLongitude,
-    destinationLatitude,
-    destinationLongitude,
-  })
+  const { data: drivers, loading, error } = useFetch<Driver[]>('/(api)/driver')
+  const [markers, setMarkers] = useState<MarkerData[]>([])
 
   useEffect(() => {
     if (Array.isArray(drivers)) {
@@ -93,7 +87,11 @@ export const Map = () => {
   }, [drivers, userLatitude, userLongitude])
 
   useEffect(() => {
-    if (markers.length > 0 && destinationLatitude && destinationLongitude) {
+    if (
+      markers.length > 0 &&
+      destinationLatitude !== undefined &&
+      destinationLongitude !== undefined
+    ) {
       calculateDriverTimes({
         markers,
         userLatitude,
@@ -106,7 +104,14 @@ export const Map = () => {
     }
   }, [markers, destinationLatitude, destinationLongitude])
 
-  if (loading || !userLatitude || !userLongitude) {
+  const region = calculateRegion({
+    userLatitude,
+    userLongitude,
+    destinationLatitude,
+    destinationLongitude,
+  })
+
+  if (loading || (!userLatitude && !userLongitude)) {
     return (
       <View className="flex justify-between items-center w-full">
         <ActivityIndicator size="small" color="#000" />
@@ -128,23 +133,21 @@ export const Map = () => {
       className="w-full h-full rounded-2xl"
       tintColor="black"
       mapType="mutedStandard"
-      initialRegion={region}
       showsPointsOfInterest={false}
+      initialRegion={region}
       showsUserLocation={true}
       userInterfaceStyle="light"
     >
       {markers.map((marker, index) => (
         <Marker
-          key={marker.driver_id + index + marker.first_name}
+          key={marker.id + index + marker.first_name}
           coordinate={{
             latitude: marker.latitude,
             longitude: marker.longitude,
           }}
           title={marker.title}
           image={
-            selectedDriver === marker.driver_id
-              ? icons.selectedMarker
-              : icons.marker
+            selectedDriver === marker.id ? icons.selectedMarker : icons.marker
           }
         />
       ))}
@@ -157,12 +160,27 @@ export const Map = () => {
               latitude: destinationLatitude,
               longitude: destinationLongitude,
             }}
-            title='Destination'
+            title="Destination"
             image={icons.pin}
-            accessibilityLabel='Destination'
+          />
+
+          <MapViewDirections
+            origin={{
+              latitude: userLatitude!,
+              longitude: userLongitude!,
+            }}
+            destination={{
+              latitude: destinationLatitude,
+              longitude: destinationLongitude,
+            }}
+            apikey={process.env.EXPO_PUBLIC_DIRECTIONS_API_KEY!}
+            strokeColor="#0286ff"
+            strokeWidth={2}
           />
         </>
       )}
     </MapView>
   )
 }
+
+export default Map

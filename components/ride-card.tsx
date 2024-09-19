@@ -21,24 +21,13 @@ interface RideCardProps {
 }
 
 export const RideCard = ({ ride }: RideCardProps) => {
-  const {
-    destination_longitude,
-    destination_latitude,
-    origin_address,
-    destination_address,
-    created_at,
-    ride_time,
-    payment_status,
-    driver,
-  } = ride
-
   return (
     <View className="flex flex-row justify-center items-center bg-white rounded-lg shadow-sm shadow-neutral-300 mb-3">
       <View className="flex flex-col justify-center items-center p-3">
         <View className="flex flex-row justify-between items-center">
           <Image
             source={{
-              uri: `https://maps.geoapify.com/v1/staticmap?style=osm-bright&width=600&height=400&center=lonlat:${destination_longitude},${destination_latitude}&zoom=14&apiKey=${process.env.EXPO_PUBLIC_GEOAPIFY_API_KEY}`,
+              uri: `https://maps.geoapify.com/v1/staticmap?style=osm-bright&width=600&height=400&center=lonlat:${ride.destination_longitude},${ride.destination_latitude}&zoom=14&apiKey=${process.env.EXPO_PUBLIC_GEOAPIFY_API_KEY}`,
             }}
             className="w-[80px] h-[90px] rounded-lg"
           />
@@ -47,7 +36,7 @@ export const RideCard = ({ ride }: RideCardProps) => {
             <View className="flex flex-row items-center gap-x-2">
               <Image source={icons.to} className="w-5 h-5" alt="To icon" />
               <Text className="font-JakartaMedium" numberOfLines={1}>
-                {origin_address}
+                {ride.origin_address}
               </Text>
             </View>
 
@@ -58,7 +47,7 @@ export const RideCard = ({ ride }: RideCardProps) => {
                 alt="Point icon"
               />
               <Text className="font-JakartaMedium" numberOfLines={1}>
-                {destination_address}
+                {ride.destination_address}
               </Text>
             </View>
           </View>
@@ -70,21 +59,21 @@ export const RideCard = ({ ride }: RideCardProps) => {
               Date & Time
             </Text>
             <Text className="font-JakartaMedium text-gray-500">
-              {formatDate(created_at)}, {formatTime(ride_time)}
+              {formatDate(ride.created_at)}, {formatTime(ride.ride_time)}
             </Text>
           </View>
 
           <View className="flex flex-row items-center justify-between w-full mb-5">
             <Text className="font-JakartaMedium text-gray-500">Driver</Text>
             <Text className="font-JakartaMedium text-gray-500">
-              {driver.first_name} {driver.last_name}
+              {ride.driver.first_name} {ride.driver.last_name}
             </Text>
           </View>
 
           <View className="flex flex-row items-center justify-between w-full mb-5">
             <Text className="font-JakartaMedium text-gray-500">Car Seats</Text>
             <Text className="font-JakartaMedium text-gray-500">
-              {driver.car_seats}
+              {ride.driver.car_seats}
             </Text>
           </View>
 
@@ -95,10 +84,12 @@ export const RideCard = ({ ride }: RideCardProps) => {
             <Text
               className={cn(
                 'font-JakartaMedium capitalize',
-                payment_status === 'paid' ? 'text-green-500' : 'text-red-500',
+                ride.payment_status === 'paid'
+                  ? 'text-green-500'
+                  : 'text-red-500',
               )}
             >
-              {payment_status}
+              {ride.payment_status}
             </Text>
           </View>
         </View>

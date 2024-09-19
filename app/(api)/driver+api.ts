@@ -1,6 +1,6 @@
 import { neon } from '@neondatabase/serverless'
 
-export async function GET() {
+export async function GET(_request: Request) {
   try {
     const sql = neon(`${process.env.DATABASE_URL}`)
 
@@ -9,9 +9,6 @@ export async function GET() {
     return Response.json({ data: response })
   } catch (error) {
     console.error('Error fetching data from drivers: ', error)
-    return Response.json(
-      { error: 'Internal Server Error: ' + error },
-      { status: 500 },
-    )
+    return Response.json({ error: 'Internal Server Error' }, { status: 500 })
   }
 }

@@ -2,7 +2,7 @@ import { Text, View } from 'react-native'
 import { Href, router } from 'expo-router'
 
 import { useLocationStore } from '@/store'
-import { RideLayout } from '@/components/ride-layout'
+import RideLayout from '@/components/ride-layout'
 import GoogleTextInput from '@/components/google-text-input'
 import { icons } from '@/constants'
 import { CustomButton } from '@/components/custom-button'
@@ -21,7 +21,7 @@ export default function FindRide() {
         <Text className="text-lg font-JakartaSemiBold mb-3">From</Text>
         <GoogleTextInput
           icon={icons.target}
-          initialLocation={userAddress ?? undefined}
+          initialLocation={userAddress!}
           containerStyle="bg-neutral-100"
           textInputBackgroundColor="#f5f5f5"
           handlePress={(location) => setUserLocation(location)}
@@ -32,7 +32,7 @@ export default function FindRide() {
         <Text className="text-lg font-JakartaSemiBold mb-3">To</Text>
         <GoogleTextInput
           icon={icons.map}
-          initialLocation={destinationAddress ?? undefined}
+          initialLocation={destinationAddress!}
           containerStyle="bg-neutral-100"
           textInputBackgroundColor="transparent"
           handlePress={(location) => setDestinationLocation(location)}
@@ -41,7 +41,7 @@ export default function FindRide() {
 
       <CustomButton
         title="Find now"
-        onPress={() => router.push('/(root)/confirm-ride' as Href)}
+        onPress={() => router.push('/(root)/confirm-ride')}
         className="mt-5"
       />
     </RideLayout>

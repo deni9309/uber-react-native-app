@@ -54,7 +54,7 @@ export default function Payment({
         },
         confirmHandler: async (
           paymentMethod,
-          _shouldSavePaymentMethod,
+          shouldSavePaymentMethod,
           intentCreationCallback,
         ) => {
           const {

@@ -14,16 +14,12 @@ export const DriverCard = ({
       onPress={setSelected}
       className={cn(
         'flex flex-row items-center justify-between py-5 px-3 rounded-xl',
-        selected === item.driver_id ? 'bg-general-600' : 'bg-white',
+        selected === item.id ? 'bg-general-600' : 'bg-white',
       )}
     >
       <Image
         source={{ uri: item.profile_image_url }}
-        alt={
-          item?.first_name && item?.last_name
-            ? `${item.first_name} ${item.last_name}`
-            : 'profile picture'
-        }
+        alt="profile picture"
         className="w-14 h-14 rounded-full"
       />
 

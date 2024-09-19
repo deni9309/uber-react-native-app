@@ -3,12 +3,10 @@ import { StripeProvider } from '@stripe/stripe-react-native'
 import { useUser } from '@clerk/clerk-expo'
 
 import Payment from '@/components/payment'
-import { RideLayout } from '@/components/ride-layout'
+import RideLayout from '@/components/ride-layout'
 import { icons } from '@/constants'
 import { formatTime } from '@/lib/utils'
 import { useDriverStore, useLocationStore } from '@/store'
-
-const publishableKey = process.env.EXPO_PUBLIC_STRIPE_PUBLISHABLE_KEY!
 
 export default function BookRide() {
   const { user } = useUser()
@@ -16,13 +14,13 @@ export default function BookRide() {
   const { drivers, selectedDriver } = useDriverStore()
 
   const driverDetails = drivers?.filter(
-    (driver) => Number(driver.driver_id) === selectedDriver,
+    (driver) => +driver.id === selectedDriver,
   )[0]
 
   return (
     <StripeProvider
-      publishableKey={publishableKey}
-      merchantIdentifier="merchant.uber.dev"
+      publishableKey={process.env.EXPO_PUBLIC_STRIPE_PUBLISHABLE_KEY!}
+      merchantIdentifier="merchant.com.uber"
       urlScheme="myapp"
     >
       <RideLayout title="Book Ride">
@@ -106,7 +104,7 @@ export default function BookRide() {
             fullName={user?.fullName!}
             email={user?.emailAddresses[0].emailAddress!}
             amount={driverDetails?.price!}
-            driverId={driverDetails?.driver_id!}
+            driverId={driverDetails?.id!}
             rideTime={driverDetails?.time!}
           />
         </>

@@ -69,6 +69,7 @@ const GoogleTextInput = ({
               source={icon ? icon : icons.search}
               className="w-6 h-6"
               resizeMode="contain"
+              alt='search'
             />
           </View>
         )}
@@ -76,6 +77,7 @@ const GoogleTextInput = ({
           placeholderTextColor: 'gray',
           placeholder: initialLocation ?? 'Where do you want to go?',
         }}
+        
       />
     </View>
   )

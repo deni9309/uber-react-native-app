@@ -4,10 +4,10 @@ import { Image, Text, TouchableOpacity, View } from 'react-native'
 import { GestureHandlerRootView } from 'react-native-gesture-handler'
 
 import { icons } from '@/constants'
-import { Map } from '@/components/map'
+import Map from '@/components/map'
 import BottomSheet, { BottomSheetView } from '@gorhom/bottom-sheet'
 
-export const RideLayout = ({
+const RideLayout = ({
   title,
   children,
   snapPoints,
@@ -44,7 +44,7 @@ export const RideLayout = ({
         <BottomSheet
           ref={bottomSheetRef}
           keyboardBehavior="interactive"
-          snapPoints={snapPoints ?? ['40%', '85%']}
+          snapPoints={snapPoints ?? ['40%', '86%']}
           index={0}
         >
           <BottomSheetView style={{ flex: 1, padding: 20 }}>
@@ -55,3 +55,5 @@ export const RideLayout = ({
     </GestureHandlerRootView>
   )
 }
+
+export default RideLayout
