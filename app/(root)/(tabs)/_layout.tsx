@@ -28,7 +28,7 @@ const TabIcon = ({
         tintColor="white"
         resizeMode="contain"
         className="w-7 h-7"
-        alt='tab icon'
+        alt="tab icon"
       />
     </View>
   </View>
@@ -54,8 +54,8 @@ const Layout = () => {
           justifyContent: 'space-between',
           alignItems: 'center',
           flexDirection: 'row',
-          position: 'absolute'
-        }
+          position: 'absolute',
+        },
       }}
     >
       <Tabs.Screen

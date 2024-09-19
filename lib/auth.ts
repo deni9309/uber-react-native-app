@@ -1,5 +1,9 @@
 import * as Linking from 'expo-linking'
 import * as SecureStore from 'expo-secure-store'
+import {
+  StartOAuthFlowParams,
+  StartOAuthFlowReturnType,
+} from '@clerk/clerk-expo'
 
 import { fetchAPI } from '@/lib/fetch'
 
@@ -30,8 +34,11 @@ export const tokenCache = {
   },
 }
 
-//eslint-disable-next-line @typescript-eslint/no-explicit-any
-export const googleOAuth = async (startOAuthFlow: any) => {
+export const googleOAuth = async (
+  startOAuthFlow: (
+    tartOAuthFlowParams?: StartOAuthFlowParams,
+  ) => Promise<StartOAuthFlowReturnType>,
+) => {
   try {
     const { createdSessionId, setActive, signUp } = await startOAuthFlow({
       redirectUrl: Linking.createURL('/(root)/(tabs)/home'),
@@ -41,7 +48,7 @@ export const googleOAuth = async (startOAuthFlow: any) => {
       if (setActive) {
         await setActive({ session: createdSessionId })
 
-        if (signUp.createdUserId) {
+        if (signUp?.createdUserId) {
           await fetchAPI('/(api)/user', {
             method: 'POST',
             body: JSON.stringify({
@@ -62,6 +69,7 @@ export const googleOAuth = async (startOAuthFlow: any) => {
 
     return {
       success: false,
+      code: 'error',
       message: 'An error occurred while signing in with Google',
     }
     //eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -69,8 +77,8 @@ export const googleOAuth = async (startOAuthFlow: any) => {
     console.error(error)
     return {
       success: false,
-      code: error.code,
-      message: error?.errors[0]?.longMessage,
+      code: error.code as string,
+      message: error?.errors[0]?.longMessage as string,
     }
   }
 }

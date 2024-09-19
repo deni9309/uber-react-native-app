@@ -7,7 +7,6 @@ export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs))
 }
 
-
 export const sortRides = (rides: Ride[]): Ride[] => {
   const result = rides.sort((a, b) => {
     const dateA = new Date(`${a.created_at}T${a.ride_time}`)

@@ -1,5 +1,5 @@
 import { Text, View } from 'react-native'
-import { Href, router } from 'expo-router'
+import { router } from 'expo-router'
 
 import { useLocationStore } from '@/store'
 import RideLayout from '@/components/ride-layout'
