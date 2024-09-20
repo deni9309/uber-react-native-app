@@ -1,7 +1,7 @@
-import { useCallback } from 'react'
 import { useOAuth } from '@clerk/clerk-expo'
 import { router } from 'expo-router'
-import { View, Text, Image, Alert } from 'react-native'
+import { useCallback } from 'react'
+import { View, Text, Image } from 'react-native'
 
 import { CustomButton } from '@/components/custom-button'
 import { icons } from '@/constants'

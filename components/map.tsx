@@ -1,17 +1,17 @@
 import { useEffect, useState } from 'react'
+import { ActivityIndicator, Text, View } from 'react-native'
 import MapView, { Marker, PROVIDER_DEFAULT } from 'react-native-maps'
+import MapViewDirections from 'react-native-maps-directions'
 
-import { useDriverStore, useLocationStore } from '@/store'
+import { icons } from '@/constants'
+import { useFetch } from '@/lib/fetch'
 import {
   calculateDriverTimes,
   calculateRegion,
   generateMarkersFromData,
 } from '@/lib/map'
+import { useDriverStore, useLocationStore } from '@/store'
 import { Driver, MarkerData } from '@/types/type'
-import { icons } from '@/constants'
-import { useFetch } from '@/lib/fetch'
-import { ActivityIndicator, Text, View } from 'react-native'
-import MapViewDirections from 'react-native-maps-directions'
 
 const Map = () => {
   const {

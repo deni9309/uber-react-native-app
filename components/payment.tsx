@@ -1,16 +1,16 @@
-import { useState } from 'react'
 import { useAuth } from '@clerk/clerk-expo'
-import Stripe from 'stripe'
 import { useStripe } from '@stripe/stripe-react-native'
+import { router } from 'expo-router'
+import { useState } from 'react'
 import { Alert, Image, Text, View } from 'react-native'
 import ReactNativeModal from 'react-native-modal'
-import { router } from 'expo-router'
+import Stripe from 'stripe'
 
 import { CustomButton } from '@/components/custom-button'
+import { images } from '@/constants'
+import { fetchAPI } from '@/lib/fetch'
 import { useLocationStore } from '@/store'
 import { PaymentProps } from '@/types/type'
-import { fetchAPI } from '@/lib/fetch'
-import { images } from '@/constants'
 
 export default function Payment({
   fullName,
@@ -45,6 +45,7 @@ export default function Payment({
   }
 
   const initializePaymentSheet = async () => {
+    //eslint-disable-next-line  @typescript-eslint/no-unused-vars
     const { error } = await initPaymentSheet({
       merchantDisplayName: 'Ryde Inc.',
       intentConfiguration: {

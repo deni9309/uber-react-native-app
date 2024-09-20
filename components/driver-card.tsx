@@ -1,8 +1,8 @@
-import { DriverCardProps } from '@/types/type'
 import { Image, Text, TouchableOpacity, View } from 'react-native'
 
-import { cn, formatTime } from '@/lib/utils'
 import { icons } from '@/constants'
+import { cn, formatTime } from '@/lib/utils'
+import { DriverCardProps } from '@/types/type'
 
 export const DriverCard = ({
   item,

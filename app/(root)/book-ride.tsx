@@ -1,6 +1,6 @@
-import { Image, Text, View } from 'react-native'
-import { StripeProvider } from '@stripe/stripe-react-native'
 import { useUser } from '@clerk/clerk-expo'
+import { StripeProvider } from '@stripe/stripe-react-native'
+import { Image, Text, View } from 'react-native'
 
 import Payment from '@/components/payment'
 import RideLayout from '@/components/ride-layout'

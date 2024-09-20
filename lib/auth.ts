@@ -1,9 +1,9 @@
-import * as Linking from 'expo-linking'
-import * as SecureStore from 'expo-secure-store'
 import {
   StartOAuthFlowParams,
   StartOAuthFlowReturnType,
 } from '@clerk/clerk-expo'
+import * as Linking from 'expo-linking'
+import * as SecureStore from 'expo-secure-store'
 
 import { fetchAPI } from '@/lib/fetch'
 
@@ -28,6 +28,7 @@ export const tokenCache = {
   async saveToken(key: string, value: string) {
     try {
       return SecureStore.setItemAsync(key, value)
+      //eslint-disable-next-line @typescript-eslint/no-unused-vars
     } catch (_err) {
       return
     }

@@ -1,7 +1,7 @@
-import { useEffect, useState } from 'react'
 import { useAuth, useUser } from '@clerk/clerk-expo'
 import * as Location from 'expo-location'
 import { router } from 'expo-router'
+import { useEffect, useState } from 'react'
 import {
   ActivityIndicator,
   FlatList,
@@ -12,12 +12,12 @@ import {
 } from 'react-native'
 import { SafeAreaView } from 'react-native-safe-area-context'
 
-import { RideCard } from '@/components/ride-card'
-import { icons, images } from '@/constants'
 import GoogleTextInput from '@/components/google-text-input'
 import Map from '@/components/map'
-import { useLocationStore } from '@/store'
+import { RideCard } from '@/components/ride-card'
+import { icons, images } from '@/constants'
 import { useFetch } from '@/lib/fetch'
+import { useLocationStore } from '@/store'
 import { Ride } from '@/types/type'
 
 export default function Home() {
@@ -31,11 +31,13 @@ export default function Home() {
     router.replace('/(auth)/sign-in')
   }
 
+  //eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [hasPermissions, setHasPermissions] = useState(false)
 
   const {
     data: recentRides,
     loading,
+    //eslint-disable-next-line @typescript-eslint/no-unused-vars
     error,
   } = useFetch<Ride[]>(`/(api)/ride/${user?.id}`)
 

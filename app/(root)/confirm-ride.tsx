@@ -1,14 +1,14 @@
-import RideLayout from '@/components/ride-layout'
-import { View, FlatList } from 'react-native'
 import { router } from 'expo-router'
+import { View, FlatList } from 'react-native'
 
-import { useDriverStore } from '@/store'
-import { DriverCard } from '@/components/driver-card'
 import { CustomButton } from '@/components/custom-button'
+import { DriverCard } from '@/components/driver-card'
+import RideLayout from '@/components/ride-layout'
+import { useDriverStore } from '@/store'
 
 export default function ConfirmRide() {
   const { drivers, selectedDriver, setSelectedDriver } = useDriverStore()
-  console.log(selectedDriver)
+
   return (
     <RideLayout title="Choose a Driver" snapPoints={['65%', '85%']}>
       <FlatList

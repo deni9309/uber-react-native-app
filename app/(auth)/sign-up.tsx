@@ -1,13 +1,13 @@
-import { useState } from 'react'
 import { useSignUp } from '@clerk/clerk-expo'
-import { Alert, Image, ScrollView, Text, View } from 'react-native'
 import { Link, router } from 'expo-router'
+import { useState } from 'react'
+import { Alert, Image, ScrollView, Text, View } from 'react-native'
 import ReactNativeModal from 'react-native-modal'
 
-import { icons, images } from '@/constants'
-import { InputField } from '@/components/input-field'
 import { CustomButton } from '@/components/custom-button'
+import { InputField } from '@/components/input-field'
 import { OAuth } from '@/components/oauth'
+import { icons, images } from '@/constants'
 import { fetchAPI } from '@/lib/fetch'
 
 const SignUp = () => {

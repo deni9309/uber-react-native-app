@@ -1,11 +1,11 @@
-import { FlatList, Text, Image, View, ActivityIndicator } from 'react-native'
 import { useUser } from '@clerk/clerk-expo'
+import { FlatList, Text, Image, View, ActivityIndicator } from 'react-native'
 import { SafeAreaView } from 'react-native-safe-area-context'
 
-import { useFetch } from '@/lib/fetch'
-import { Ride } from '@/types/type'
 import { RideCard } from '@/components/ride-card'
 import { images } from '@/constants'
+import { useFetch } from '@/lib/fetch'
+import { Ride } from '@/types/type'
 
 export default function Rides() {
   const { user } = useUser()
@@ -13,6 +13,7 @@ export default function Rides() {
   const {
     data: recentRides,
     loading,
+    //eslint-disable-next-line @typescript-eslint/no-unused-vars
     error,
   } = useFetch<Ride[]>(`/(api)/ride/${user?.id}`)
 
